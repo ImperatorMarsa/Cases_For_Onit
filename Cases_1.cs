@@ -3,8 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace Pony{
+    class BigNum{
+        public int Multip;
+        public List<List<int>> Koord;
+    }
     class Program{
-        static void OpredMax(List<List<int>> mass){
+        static void OpredMax(List<List<int>> mass, int DlinaKombinacii){
             int maximum=0;
 
             for(int i=0; i<mass.Count; i++){
@@ -20,19 +24,28 @@ namespace Pony{
                 index.Add(new List<List<int>>());
                 for(int i=0; i<mass.Count; i++){
                     int buf=mass[i].IndexOf(N);
-                    while(buf>0){
+                    while(buf>=0){
                         index[N].Add(new List<int>() {i, buf});
                         buf=mass[i].IndexOf(N, buf+1);
                     }
                 }
             }
 
-            List<List<int>> bigNum=new List<List<int>>();
-            bigNum.Add(new List<int> {0, 0, 0, 0});
-            bigNum.Add(new List<int> {0, 0, 0, 0});
-            for(int N=maximum; N>-1; N--){
-                for(int i=0; i<index[N].Count; i++){
-                    for(int j=0; j<index[N][i].Count; j++){
+            BigNum result=new BigNum() {Multip=0, Koord=new List<List<int>>()};
+            result.Koord.Add(new List<int>() {0, 0, 0, 0});
+            result.Koord.Add(new List<int>() {0, 0, 0, 0});
+            for(int N=index.Count; N>-1; N--){
+                for(int lN=0; lN<index[N].Count; lN++){
+                    BigNum buf=new BigNum() {Multip=0, Koord=new List<List<int>>()};
+                    buf.Koord.Add(new List<int>() {0, 0, 0, 0});
+                    buf.Koord.Add(new List<int>() {0, 0, 0, 0});
+                    for(int Perebor=0; Perebor<DlinaKombinacii; Perebor++){
+                        for(int K=index.Count; K>-1; K--){
+                            for(int lK=0; lK<index[K].Count; lK++){
+                                if(N==K && lN==lK){continue;}
+                                if()
+                            }
+                        }
                     }
                 }
             }
@@ -71,7 +84,7 @@ namespace Pony{
                 mass.Add(new List<int>() {01, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 01, 89, 19, 67, 48});
             }
             
-            OpredMax(mass);
+            OpredMax(mass, 4);
         }
     }
 }
